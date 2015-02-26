@@ -6,9 +6,8 @@ function preload() {
     game.load.image('player','assets/sprites/man.png');
 	game.load.audio('music', 'assets/audio/Axwell - Ingrosso - We Come We Rave We Love (Dex Morrison Remix).mp3');
 	game.load.image('ball', 'assets/sprites/pencil.png');
-    game.load.image('button', 'assets/buttons/button_sprite_sheet.png');
-    game.load.image('background', 'assets/pics/bubble-on.png');
-    game.load.image('close', 'assets/sprites/orb-red.png');
+    game.load.image('button', 'assets/sprites/button.png');
+    game.load.image('close', 'assets/sprites/red.png');
 }
 
 var player;
