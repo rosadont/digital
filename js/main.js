@@ -31,6 +31,34 @@ function create() {
     cursors = game.input.keyboard.createCursorKeys();
 	fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     game.camera.follow(player);
+
+    //add pencils
+    var bmd = game.add.bitmapData(200, 200);
+    game.cache.addBitmapData('ball', bmd);
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    createBox();
+    game.time.events.repeat(Phaser.Timer.SECOND, 20, createBox, this);
+    game.input.onDown.add(updateBitmapDataTexture, this);
+}
+
+function createBox() {
+
+	var sprite = game.add.sprite(game.world.randomX, game.world.randomY, game.cache.getBitmapData('ball'));
+    game.physics.arcade.enable(sprite);
+    sprite.body.collideWorldBounds = true;
+    sprite.body.bounce.set(1);
+	sprite.body.velocity.x = game.rnd.realInRange(-200, 200);
+	sprite.body.velocity.y = game.rnd.realInRange(-200, 200);
+
+}
+
+function updateBitmapDataTexture() {
+
+	//	Get the bitmapData from the cache. This returns a reference to the original object
+	var bmd = game.cache.getBitmapData('ball');
+    //	All sprites using this texture will update at the next render
+    bmd.dirty = true;
+
 }
 
 function update() {
