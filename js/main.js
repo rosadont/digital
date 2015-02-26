@@ -44,10 +44,8 @@ function create() {
 	
 	//add pencils
 	balls = game.add.group();
-	game.physics.arcade.gravity.y = -400;
+	game.physics.arcade.gravity.y = 400;
 	game.physics.arcade.enable(game.world, true);
-    player.body.allowGravity = 0;
-    player.body.immovable = true;
 }
 
 function createBox() {
