@@ -5,12 +5,14 @@ function preload() {
     game.load.image('background','assets/sprites/background.jpg');
     game.load.image('player','assets/sprites/man.png');
 	game.load.audio('music', 'assets/audio/Axwell - Ingrosso - We Come We Rave We Love (Dex Morrison Remix).mp3');
-	game.load.image('ball', 'assets/sprites/pencil.png');
+	//game.load.image('ball', 'assets/sprites/pencil.png');
+	game.load.image('ball', 'assets/sprites/pencilsheet.png');
 }
 
 var player;
 var cursors;
 var music;
+var ball;
 
 function create() {
 
@@ -32,13 +34,20 @@ function create() {
 	fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     game.camera.follow(player);
 
-    //add pencils
+/*     //add pencils
     var bmd = game.add.bitmapData(200, 200);
     game.cache.addBitmapData('ball', bmd);
     game.physics.startSystem(Phaser.Physics.ARCADE);
     createBox();
     game.time.events.repeat(Phaser.Timer.SECOND, 20, createBox, this);
-    game.input.onDown.add(updateBitmapDataTexture, this);
+    game.input.onDown.add(updateBitmapDataTexture, this); */
+	
+	//add pencils
+	balls = game.add.group();
+	game.physics.arcade.gravity.y = 400;
+	game.physics.arcade.enable(game.world, true);
+    player.body.allowGravity = 0;
+    player.body.immovable = true;
 }
 
 function createBox() {
@@ -77,6 +86,16 @@ function update() {
     else if (cursors.right.isDown){
         player.body.moveRight(300);
     }
+	balls.forEachAlive(checkBounds, this);
+}
+
+function checkBounds(ball) {
+
+    if (ball.y > 600)
+    {
+        ball.kill();
+    }
+
 }
 
 function render() {
