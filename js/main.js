@@ -10,6 +10,7 @@ function preload() {
 
 var player;
 var cursors;
+var music;
 
 function create() {
 
@@ -19,7 +20,7 @@ function create() {
 	//music
     game.stage.backgroundColor = '#182d3b';
     game.input.touch.preventDefault = false;
-    var music = game.add.audio('music');
+    music = game.add.audio('music');
     music.play();
     game.input.onDown.add(changeVolume, this);
 	
