@@ -31,11 +31,16 @@ function create() {
 	
 	//bitmapData
 	game.physics.startSystem(Phaser.Physics.P2JS);
-    player = game.add.sprite(100, 900, 'player');
+    player = game.add.sprite(100, 800, 'player');
     game.physics.p2.enable(player);
     cursors = game.input.keyboard.createCursorKeys();
 	fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     game.camera.follow(player);
+	
+	//add pencil
+	emitter = game.add.emitter(game.world.centerX, 100, 200);
+    emitter.makeParticles('ball');
+    emitter.start(false, 5000, 20);
 	
 	//button
 	button = game.add.button(game.world.centerX - 95, 460, 'button', openWindow, this, 2, 1, 0);
