@@ -31,7 +31,7 @@ function create() {
 	
 	//bitmapData
 	game.physics.startSystem(Phaser.Physics.P2JS);
-    player = game.add.sprite(100, 800, 'player');
+    player = game.add.sprite(100, 900, 'player');
     game.physics.p2.enable(player);
     cursors = game.input.keyboard.createCursorKeys();
 	fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -46,7 +46,7 @@ function create() {
 	button = game.add.button(game.world.centerX - 95, 460, 'button', openWindow, this, 2, 1, 0);
     button.input.useHandCursor = true;
 	 //  You can drag the pop-up window around
-    popup = game.add.sprite(900, 100, 'background');
+    popup = game.add.sprite(700, 100, 'background');
     popup.alpha = 0.8;
     popup.anchor.set(0.5);
     popup.inputEnabled = true;
