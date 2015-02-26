@@ -5,11 +5,15 @@ function preload() {
     game.load.image('background','assets/sprites/background.jpg');
     game.load.image('player','assets/sprites/man.png');
 	game.load.audio('music', 'assets/audio/Axwell - Ingrosso - We Come We Rave We Love (Dex Morrison Remix).mp3');
+	game.load.image('bullet', 'assets/sprites/bullet.png');
 	game.load.image('ball', 'assets/sprites/pencil.png');
 }
 
 var player;
 var cursors;
+var penicl;
+var man;
+var stateText;
 
 function create() {
 
@@ -25,7 +29,7 @@ function create() {
 	//music
     game.stage.backgroundColor = '#182d3b';
     game.input.touch.preventDefault = false;
-    var music = game.add.audio('music');
+    music = game.add.audio('music');
     music.play();
     game.input.onDown.add(changeVolume, this);
 	
@@ -36,12 +40,33 @@ function create() {
     cursors = game.input.keyboard.createCursorKeys();
 	fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     game.camera.follow(player);
+
+    game.camera.follow(player);
+	
+	//  Text
+    stateText = game.add.text(game.world.centerX,game.world.centerY,' ', { font: '84px Arial', fill: '#fff' });
+    stateText.anchor.setTo(0.5, 0.5);
+    stateText.visible = false;
+	
+	//bouncing pencil
+    game.physics.arcade.gravity.y = 150;
+	game.time.events.repeat(Phaser.Timer.SECOND * 2, 10, createBall, this);
+
+}
+
+function createBall() {
+
+    //  A bouncey ball sprite just to visually see what's going on.
+    var ball = game.add.sprite(game.world.randomX, 0, 'ball');
+    game.physics.enable(ball, Phaser.Physics.ARCADE);
+    ball.body.bounce.y = 0.9;
+    ball.body.collideWorldBounds = true;
 }
 
 function update() {
 	
 	//bitmapData
-	player.body.setZeroVelocity();
+	  player.body.setZeroVelocity();
     if (cursors.up.isDown){
         player.body.moveUp(300)
     }
@@ -54,6 +79,23 @@ function update() {
     else if (cursors.right.isDown){
         player.body.moveRight(300);
     }
+	
+	game.physics.arcade.overlap(pencil, man, collisionHandler, null, this);
+}
+
+function collisionHandler (pencil, man) {
+
+    //  When a bullet hits an alien we kill them both
+    pencil.kill();
+    man.kill();
+}
+
+
+function collisionHandler (pencil, man) {
+
+    //  When a bullet hits an alien we kill them both
+    pencil.kill();
+    man.kill();
 }
 
 function render() {
